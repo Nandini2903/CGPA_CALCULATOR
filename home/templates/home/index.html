@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CGPA Calculator</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            background-color: #f0f0f0;
+        }
+
+        #calculator {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            background-color: #fff;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        h1 {
+            color: green;
+            text-align: center;
+            font-family: 'Times New Roman', Times, serif;
+        }
+
+        h2 {
+            text-align: center;
+            font-family: 'Times New Roman', Times, serif;
+            color: #333;
+            margin-bottom: 20px;
+            text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.1);
+        }
+
+        form {
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        button[type="submit"],
+        button a {
+            padding: 10px 20px;
+            color: #fff;
+            background-color: #007bff;
+            border: none;
+            font-size: 14px;
+            font-weight: bold;
+            border-radius: 3px;
+            cursor: pointer;
+            text-decoration: none;
+            display: inline-block;
+            transition: background-color 0.3s;
+            margin-right: 10px;
+        }
+
+        button[type="submit"]:hover,
+        button a:hover {
+            background-color: #0056b3;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+
+        th, td {
+            border: 1px solid #ddd;
+            padding: 10px;
+            text-align: left;
+            font-family: 'Arial', sans-serif;
+        }
+
+        th {
+            background-color: #f0f0f0;
+            color: #333;
+        }
+
+        td {
+            background-color: #fff;
+        }
+
+        td.actions button {
+            padding: 8px 12px;
+            margin-right: 5px;
+            color: #fff;
+            border: none;
+            font-size: 12px;
+            font-weight: bold;
+            border-radius: 3px;
+            cursor: pointer;
+            text-decoration: none;
+            display: inline-block;
+            transition: background-color 0.3s;
+        }
+
+        td.actions button.edit {
+            background-color: #28a745;
+        }
+
+        td.actions button.delete {
+            background-color: #dc3545;
+        }
+
+        td.actions button:hover {
+            opacity: 0.8;
+        }
+
+        button.logout {
+            margin-left: calc(100% - 120px);
+            padding: 10px 20px;
+            color: #fff;
+            background-color: #6c757d;
+            border: none;
+            font-size: 14px;
+            font-weight: bold;
+            border-radius: 3px;
+            cursor: pointer;
+            text-decoration: none;
+            display: inline-block;
+            transition: background-color 0.3s;
+        }
+
+        button.logout:hover {
+            background-color: #5a6268;
+        }
+
+        a {
+            color: black;
+            text-decoration: none;
+        }
+    </style>
+</head>
+<body>
+<div id="calculator">
+    <h1>CMRIT</h1>
+    <h2>CGPA Calculator</h2>
+    <form method="post" action="{% url 'cgpa_calculator' %}">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit">Add Subject</button>
+        <button><a href="{% url 'result' %}">Generate Result</a></button>
+    </form>
+    <table>
+        <thead>
+        <tr>
+            <th>Subject</th>
+            <th>Grade</th>
+            <th>Credit</th>
+            <th>Actions</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for subject in subjects %}
+        <tr>
+            <td>{{ subject.name }}</td>
+            <td>{{ subject.grade }}</td>
+            <td>{{ subject.credit }}</td>
+            <td class="actions">
+                <button class="edit"><a href="{% url 'edit_subject' subject.id %}">Edit</a></button>
+                <button class="delete"><a href="{% url 'delete_subject' subject.id %}">Delete</a></button>
+            </td>
+        </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+</div>
+<button class="logout"><a href="{% url 'logout' %}">Logout</a></button>
+</body>
+</html>

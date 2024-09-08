@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CGPA Calculator</title>
+    <!-- Add jsPDF library -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.4.0/jspdf.umd.min.js"></script>
+</head>
+<style>
+    body {
+        font-family: Arial, sans-serif;
+        margin: 20px;
+        background-color: #f4f4f4; /* Light gray background */
+    }
+
+    .calculator {
+        max-width: 600px;
+        margin: 0 auto;
+        padding: 20px;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        background-color: #fff; /* White background */
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* Subtle shadow */
+    }
+
+    table {
+        width: 100%;
+        border-collapse: collapse;
+        margin-top: 20px;
+        background-color: #f9f9f9; /* Light gray background for table */
+    }
+
+    th, td {
+        border: 1px solid #ddd;
+        padding: 10px;
+        text-align: left;
+        font-family: 'Times New Roman', Times, serif;
+    }
+
+    th {
+        color: #616d5d; /* Dark gray text for table headers */
+        background-color: #f0f0f0; /* Light gray background for table headers */
+    }
+
+    #cgpa {
+        font-weight: bold;
+        color: #4caf50; /* Green text for CGPA */
+    }
+
+    button.btn1 {
+        padding: 10px 20px;
+        color: #fff;
+        background-color: #007bff; /* Blue background for button */
+        border: none;
+        font-size: 13px;
+        font-weight: bold;
+        border-radius: 3px;
+        cursor: pointer;
+        margin-left: 20px; /* Adjusted margin for button */
+    }
+
+    button.btn1:hover {
+        background-color: #0056b3; /* Darker blue on hover */
+    }
+</style>
+
+<body>
+    <div id="mn" class="calculator">
+        <table>
+            <thead>
+                <tr>
+                    <th>Subject</th>
+                    <th>Grade</th>
+                    <th>Credit</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for subject in subjects %}
+                <tr>
+                    <td>{{ subject.name }}</td>
+                    <td>{{ subject.grade }}</td>
+                    <td>{{ subject.credit }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+        <h3>CGPA: <span id="cgpa">{{ cgpa }}</span></h3>
+    </div>
+    <br>
+    <button onclick="myfun('mn')" type="button" class="btn btn1">Generate Receipt</button>
+    <script type="text/javascript">
+        function myfun(pa) {
+            let d = document.getElementById(pa).innerHTML;
+            document.body.innerHTML = d;
+            window.print();
+        }
+    </script>
+</body>
+
+</html>

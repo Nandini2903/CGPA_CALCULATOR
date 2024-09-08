@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Edit Subject</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            background-color: #f0f0f0;
+        }
+
+        #calculator {
+            max-width: 400px;
+            margin: 0 auto;
+            padding: 20px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            background-color: #fff;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        h2 {
+            font-family: 'Times New Roman', Times, serif;
+            text-align: center;
+            color: #333;
+            text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.1);
+        }
+
+        form {
+            display: flex;
+            flex-direction: column;
+        }
+
+        label {
+            font-weight: bold;
+            margin-bottom: 8px;
+            color: #555;
+        }
+
+        input[type="text"],
+        select {
+            padding: 10px;
+            margin-bottom: 15px;
+            border: 1px solid #ddd;
+            border-radius: 3px;
+            font-size: 14px;
+        }
+
+        input[type="text"] {
+            width: calc(100% - 22px);
+        }
+
+        select {
+            width: 100%;
+        }
+
+        button[type="submit"],
+        button a {
+            padding: 10px 20px;
+            color: #fff;
+            background-color: #007bff;
+            border: none;
+            font-size: 14px;
+            font-weight: bold;
+            border-radius: 3px;
+            cursor: pointer;
+            text-decoration: none;
+            text-align: center;
+            display: inline-block;
+            transition: background-color 0.3s;
+        }
+
+        button[type="submit"]:hover,
+        button a:hover {
+            background-color: #0056b3;
+        }
+
+        button a {
+            background-color: #6c757d;
+        }
+
+        button a:hover {
+            background-color: #5a6268;
+        }
+
+        .btn-group {
+            display: flex;
+            justify-content: space-between;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="calculator">
+        <br>
+        <h2>Edit Subject</h2>
+        <br>
+        <form method="post" action="{% url 'edit_subject' subject_id=subject_id %}">
+            {% csrf_token %}
+            <label for="id_name">Name:</label>
+            {{ form.name }}
+            <label for="id_credit">Credit:</label>
+            {{ form.credit }}
+            <label for="id_grade">Grade:</label>
+            {{ form.grade }}
+
+            <div class="btn-group">
+                <button type="submit">Save Changes</button>
+                <button><a href="{% url 'cgpa_calculator' %}">Cancel</a></button>
+            </div>
+        </form>
+        <br>
+    </div>
+</body>
+
+</html>
+
